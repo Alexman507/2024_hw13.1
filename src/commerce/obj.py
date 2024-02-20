@@ -13,13 +13,17 @@ class Category:
         self.__products = products
 
     def add_product(self, list_category: list):
+        """Добавляет категорию с проверкой, если уже есть такая категория - выдаёт сообщение"""
+        # print(self.name)
         for category in list_category:
-            # print(category)
-            if category.get("name") == self.name:
+            # print(category.get('name'))
+            if category.get('name') == self.name:
                 # print(self.__products)
-                return f"Извините, категория '{category.get('name')}' уже присутствует в списке!"
-            self.__products.append(list_category)
-            print(self.__products)
+                print(f"Извините, категория '{category.get('name')}' уже присутствует в списке!")
+                pass
+            else:
+                self.__products.append(list_category)
+            # print(self.__products)
 
 
 class Product:
@@ -66,7 +70,7 @@ add_data1 = [{"name": "Кофе", "description": "Черный гранулир�
              }]
 
 
-cat1.add_product(add_data1)
+cat1.add_product(add_data)
 
 # for products in list_category:
 #     if products.name == self.name:
