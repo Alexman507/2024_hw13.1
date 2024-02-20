@@ -1,8 +1,10 @@
 class Category:
     """Класс для вывода списка товаров"""
-    # todo: название, описание, товары
+    # Название категории
     name: str
+    # Описание категории
     description: str
+    # Список продуктов в категории
     products: list
 
     def __init__(self, name, description, products):
@@ -13,9 +15,11 @@ class Category:
 
 class Product:
     """Класс для вывода информации о товаре"""
-    # todo: название, описание, цена, количество в наличии
+    # Название продукта
     name: str
+    # Стоимость продукта
     price: float
+    # Количество продукта в наличии
     quantity: int
 
     def __init__(self, name, price, description, quantity):
