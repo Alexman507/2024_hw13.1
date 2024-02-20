@@ -25,6 +25,11 @@ class Category:
                 self.__products.append(list_category)
             # print(self.__products)
 
+    @property
+    def products(self):
+        for category in self.__products:
+            return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
+
 
 class Product:
     """Класс для вывода информации о товаре"""
@@ -69,10 +74,8 @@ add_data1 = [{"name": "Кофе", "description": "Черный гранулир�
 }]
              }]
 
+# Задача 1:
+# cat1.add_product(add_data)
+# Задача 2:
+print(cat1.products, end="\n")
 
-cat1.add_product(add_data)
-
-# for products in list_category:
-#     if products.name == self.name:
-#         self.__products['quantity'] += products['quantity']
-#         self.__products.append(products)
