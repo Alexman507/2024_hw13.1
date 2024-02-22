@@ -37,6 +37,7 @@ class Category:
         :return: Список продуктов, стоимость и остаток
         """
         for category in self.__products:
+            print(category)
             return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
 
 
@@ -49,11 +50,13 @@ class Product(Category):
     # Количество продукта в наличии
     quantity: int
 
-    def __init__(self, name, price, description, quantity, products):
+    def __init__(self, name, description, __products):
         # super(Category, self)
-        super().__init__(name, description, products)
-        self.price = price
-        self.quantity = quantity
+        super().__init__(name, description, __products)
+        self.name = __products.name
+        self.description = __products.description
+        self.price = __products.price
+        self.quantity = __products.quantity
 
 
 cat1 = Category("Чай", "Черный", [{
@@ -81,10 +84,12 @@ add_data1 = [{"name": "Кофе", "description": "Черный гранулир�
     "price": 100.0,
     "quantity": 3
 }]
-             }]
-# Проверка работы (раскомментить нужное):
+              }]
+
+# print(cat1.len_products)
+
+# Проверка работы (раскомментить нужное) 13.2:
 # Задача 1:
 cat1.add_product(add_data)
 # Задача 2:
 # print(cat1.products, end="\n")
-
