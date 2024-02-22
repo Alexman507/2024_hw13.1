@@ -4,6 +4,8 @@ class Category:
     name: str = None
     # Количество категорий
     len_category: int = 0
+    # Количество продуктов
+    len_products: int = 0
     # Список продуктов, собираемый в категорию
     list_products: list = []
 
@@ -57,10 +59,6 @@ class Category:
 
 class Product(Category):
     """Класс для вывода информации о товаре"""
-    # Стоимость продукта
-    price: float
-    # Количество продукта в наличии
-    quantity: int
 
     def __init__(self, name, description, __products):
         # super(Category, self)
