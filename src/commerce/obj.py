@@ -51,7 +51,7 @@ class Category:
 class Product:
     """Класс для вывода информации о товаре"""
 
-    def __init__(self, price, quantity, name, description):
+    def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.price = price
