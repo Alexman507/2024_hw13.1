@@ -8,47 +8,52 @@ class Category:
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
-        self.__products = products
-        Category.len_products += len(self.__products)
+        self.products = products
+        if len(products):
+            Category.len_products += len(self.products)
         Category.len_category += 1
 
     @staticmethod
     def if_repeat_category(name):
         """Проверяет, есть ли такая категория в списке"""
-        if Category.name == name:
-            return True
-        return False
+        pass
+        # if Category.name == name:
+        #     return True
+        # return False
 
     @classmethod
     def add_product(cls, *list_category: list):
         """Добавляет категорию с проверкой, если уже есть такая категория - выдаёт сообщение"""
+        pass
         # print(list_category)
-        for category in list_category:
-            if_repeat_name = category.get('name')
-            if cls.if_repeat_category(if_repeat_name):
-                # print(cls.__products)
-                print(f"Извините, категория '{category.get('name')}' уже присутствует в списке!")
-                continue
-            else:
-                cls.list_products.append(category)
-                cls.len_category = cls.len_category + 1
-                print(cls.list_products, f"\nВсего категорий: {cls.len_category}")
+        # for category in list_category:
+        #     if_repeat_name = category.get('name')
+            # if cls.if_repeat_category(if_repeat_name):
+            #     # print(cls.__products)
+            #     print(f"Извините, категория '{category.get('name')}' уже присутствует в списке!")
+            #     continue
+            # else:
+            #     cls.list_products.append(category)
+            #     cls.len_category = cls.len_category + 1
+            #     print(cls.list_products, f"\nВсего категорий: {cls.len_category}")
 
-    @property
-    def products(self):
-        """Выводит информацию об имеющихся продуктах
-        :return: Список продуктов, стоимость и остаток
-        """
-        for category in self.__products:
-            print(category)
-            return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
+    # @property
+    # def products(self):
+    #     """Выводит информацию об имеющихся продуктах
+    #     :return: Список продуктов, стоимость и остаток
+    #     """
+    #     pass
+        # for category in self.__products:
+        #     print(category)
+        #     return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
 
 
-class Product(Category):
+class Product:
     """Класс для вывода информации о товаре"""
 
-    def __init__(self, price, quantity, name, description, products):
-        super().__init__(name, description, products)
+    def __init__(self, price, quantity, name, description):
+        self.name = name
+        self.description = description
         self.price = price
         self.quantity = quantity
 

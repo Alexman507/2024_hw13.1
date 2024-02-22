@@ -7,14 +7,24 @@ def category():
     return src.commerce.obj.Category(
         name='Чай',
         description='Черный',
-        products=['Майский', 'Вкусный', 120.00, 5]
+        products=[{
+            "name": "Майский",
+            "description": "Вкусный",
+            "price": 120.0,
+            "quantity": 5
+        }]
     )
 
 
 def test_init(category):
     assert category.name == 'Чай'
     assert category.description == 'Черный'
-    assert category.products == ['Майский', 'Вкусный', 120.00, 5]
+    assert category.products == [{
+        "name": "Майский",
+        "description": "Вкусный",
+        "price": 120.0,
+        "quantity": 5
+    }]
 
 
 @pytest.fixture
