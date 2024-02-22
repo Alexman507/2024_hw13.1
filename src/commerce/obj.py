@@ -5,7 +5,7 @@ class Category:
     # Количество категорий
     len_category = 0
     # Список продуктов, собираемый в категорию
-    list_products: list = []
+    list_category: list = []
 
     def __str__(self):
         """Выводит информацию для ввода в список"""
@@ -17,10 +17,10 @@ class Category:
         self.description = description
         self.__products = products
         Category.name = self.name
-        self.len_products = len(Category.list_products)
+        self.len_products = len(Category.list_category)
         # Пополнение списка категорий при первой инициализации
         if Category.len_category == 0:
-            Category.list_products.append(Category.__str__(self))
+            Category.list_category.append(Category.__str__(self))
             Category.len_category = Category.len_category + 1
 
     @staticmethod
@@ -51,16 +51,12 @@ class Category:
         :return: Список продуктов, стоимость и остаток
         """
         for category in self.__products:
-            print(category)
+            # print(category)
             return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
 
 
 class Product(Category):
     """Класс для вывода информации о товаре"""
-    # Стоимость продукта
-    price: float
-    # Количество продукта в наличии
-    quantity: int
 
     def __init__(self, name, description, __products):
         # super(Category, self)
@@ -96,12 +92,12 @@ add_data1 = {"name": "Кофе", "description": "Черный гранулиро
     "price": 100.0,
     "quantity": 3
 }]
-              }
+             }
 
 # print(cat1.len_products)
 
 # Проверка работы (раскомментить нужное) 13.2:
 # Задача 1:
-cat1.add_product(add_data1)
+# cat1.add_product(add_data1)
 # Задача 2:
-# print(cat1.products, end="\n")
+print(cat1.products, end="\n")
