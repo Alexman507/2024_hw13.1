@@ -47,13 +47,10 @@ class Category:
 class Product(Category):
     """Класс для вывода информации о товаре"""
 
-    def __init__(self, name, description, __products):
-        # super(Category, self)
-        super().__init__(name, description, __products)
-        self.name = __products.name
-        self.description = __products.description
-        self.price = __products.price
-        self.quantity = __products.quantity
+    def __init__(self, price, quantity, name, description, products):
+        super().__init__(name, description, products)
+        self.price = price
+        self.quantity = quantity
 
 
 cat1 = Category("Чай", "Черный", [{
