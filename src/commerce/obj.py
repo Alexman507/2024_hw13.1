@@ -4,34 +4,43 @@ class Category:
     name: str
     # Описание категории
     description: str
-    # Список продуктов в категории
-    products: list
+    # Количество категорий
+    len_category: int
 
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
         self.__products = products
+        self.len_category = len(self.name)
+        self.len_products = len(self.__products)
 
-    def add_product(self, list_category: list):
+    @classmethod
+    def add_product(cls, self, *list_category: list):
         """Добавляет категорию с проверкой, если уже есть такая категория - выдаёт сообщение"""
-        # print(self.name)
+        obj = []
+        print(list_category)
         for category in list_category:
+            item = cls(category)
             # print(category.get('name'))
-            if category.get('name') == self.name:
-                # print(self.__products)
+            if item.get('name') == self.name:
+                # print(cls.__products)
                 print(f"Извините, категория '{category.get('name')}' уже присутствует в списке!")
-                pass
+                continue
             else:
-                self.__products.append(list_category)
-            # print(self.__products)
+                obj.append(item)
+                # print(item.__products)
+                return obj
 
     @property
     def products(self):
+        """Выводит информацию об имеющихся продуктах
+        :return: Список продуктов, стоимость и остаток
+        """
         for category in self.__products:
             return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
 
 
-class Product:
+class Product(Category):
     """Класс для вывода информации о товаре"""
     # Название продукта
     name: str
@@ -40,10 +49,10 @@ class Product:
     # Количество продукта в наличии
     quantity: int
 
-    def __init__(self, name, price, description, quantity):
-        self.name = name
+    def __init__(self, name, price, description, quantity, products):
+        # super(Category, self)
+        super().__init__(name, description, products)
         self.price = price
-        self.description = description
         self.quantity = quantity
 
 
@@ -54,12 +63,12 @@ cat1 = Category("Чай", "Черный", [{
     "quantity": 7
 }])
 
-add_data = [{"name": "Чай", "description": "Черный", "products": {
+add_data = [{"name": "Чай", "description": "Черный", "products": [{
     "name": "Майский",
     "description": "Нормальный пацанский чай",
     "price": 300.0,
     "quantity": 7
-}}]
+}]}]
 
 add_data1 = [{"name": "Кофе", "description": "Черный гранулированный", "products": [{
     "name": "Nescafe",
@@ -73,9 +82,9 @@ add_data1 = [{"name": "Кофе", "description": "Черный гранулир�
     "quantity": 3
 }]
              }]
-
+# Проверка работы (раскомментить нужное):
 # Задача 1:
-# cat1.add_product(add_data)
+cat1.add_product(add_data)
 # Задача 2:
-print(cat1.products, end="\n")
+# print(cat1.products, end="\n")
 
