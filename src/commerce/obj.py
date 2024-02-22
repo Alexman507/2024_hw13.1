@@ -1,29 +1,16 @@
 class Category:
     """Класс для вывода списка товаров"""
-    # Название категории для проверки
-    name: str = None
     # Количество категорий
     len_category: int = 0
     # Количество продуктов
     len_products: int = 0
-    # Список продуктов, собираемый в категорию
-    list_products: list = []
-
-    def __str__(self):
-        """Выводит информацию для ввода в список"""
-        to_dict = {"name": self.name, "description": self.description, "products": self.__products}
-        return to_dict
 
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
         self.__products = products
-        Category.name = self.name
-        self.len_products = len(Category.list_products)
-        # Пополнение списка категорий при первой инициализации
-        if Category.len_category == 0:
-            Category.list_products.append(Category.__str__(self))
-            Category.len_category = Category.len_category + 1
+        Category.len_products += len(self.__products)
+        Category.len_category += 1
 
     @staticmethod
     def if_repeat_category(name):
@@ -94,7 +81,7 @@ add_data1 = {"name": "Кофе", "description": "Черный гранулиро
     "price": 100.0,
     "quantity": 3
 }]
-              }
+             }
 
 # print(cat1.len_products)
 
