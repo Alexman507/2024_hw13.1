@@ -1,17 +1,21 @@
 class Category:
     """Класс для вывода списка товаров"""
     # Количество категорий
+
     len_category: int = 0
     # Количество продуктов
     len_products: int = 0
 
+
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
+
         self.products = products
         if len(products):
             Category.len_products += len(self.products)
         Category.len_category += 1
+
 
     @staticmethod
     def if_repeat_category(name):
@@ -36,6 +40,7 @@ class Category:
             #     cls.list_products.append(category)
             #     cls.len_category = cls.len_category + 1
             #     print(cls.list_products, f"\nВсего категорий: {cls.len_category}")
+
 
     # @property
     # def products(self):
@@ -89,6 +94,6 @@ add_data1 = {"name": "Кофе", "description": "Черный гранулиро
 
 # Проверка работы (раскомментить нужное) 13.2:
 # Задача 1:
-cat1.add_product(add_data1)
+# cat1.add_product(add_data1)
 # Задача 2:
-# print(cat1.products, end="\n")
+print(cat1.products, end="\n")
