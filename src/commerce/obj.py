@@ -3,7 +3,7 @@ class Category:
     # Название категории для проверки
     name: str = None
     # Количество категорий
-    len_category = 0
+    len_category: int = 0
     # Список продуктов, собираемый в категорию
     list_products: list = []
 
