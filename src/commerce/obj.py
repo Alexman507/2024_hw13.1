@@ -4,28 +4,27 @@ class Category:
     len_category: int = 0
     # Количество продуктов
     len_products: int = 0
-    # Список продуктов
-    list_products: list = []
 
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
 
         self.__products = products
-        if len(products):
+        if Category.len_products != 0:
+            # print("init", len(self.__products))
             Category.len_products += len(self.__products)
+        else:
+            Category.len_products = len(self.__products)
         Category.len_category += 1
 
-    @staticmethod
-    def if_repeat_category(self, name):
-        """Проверяет, есть ли такая категория в списке"""
-        if self.name == name:
-            return True
-        return False
+    # def if_repeat_category(self, name):
+    #     """Проверяет, есть ли такая категория в списке"""
+    #     if name in self.__products:
+    #         return True
+    #     return False
 
-    @classmethod
-    def add_product(cls, product):
-        """Добавляет товар в список"""
+    def add_product(self, product):
+        """Добавляет товар в существующую категорию после инициализации"""
         name = product.name
         description = product.description
         price = product.price
@@ -36,8 +35,7 @@ class Category:
             "price": price,
             "quantity": quantity
         }
-        cls.list_products.append(to_dict)
-        # print(cls.list_products)
+        self.__products.append(to_dict)
 
     @property
     def products(self):
@@ -46,32 +44,43 @@ class Category:
         """
         for category in self.__products:
             # print(category)
-            return f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
+            yield f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
 
 
 class Product:
     """Класс для вывода информации о товаре"""
-    # Список продуктов
+    # Список существующих названий продуктов для проверки
     list_products: list = []
     prev_price = None
 
     def __init__(self, name, description, price, quantity):
-        self.name = name
         self.description = description
-        if name in Category.list_products:
-            self.quantity += quantity
-            if price > Product.prev_price:
-                self.price = price
-                Product.prev_price = self.price
-        else:
-            self.quantity = quantity
-            self.price = price
-            Product.prev_price = self.price
-            Category.add_product(self)
         self.price = price
+        self.quantity = quantity
+        self.name = name
+        Product.list_products.append({
+            "name": name,
+            "description": description,
+            "price": price,
+            "quantity": quantity
+        })
 
     @classmethod
-    def create_product(cls, name, description, price, quantity):
+    def create_product(cls, _dict: dict):
+        """Создает товар, если уже есть такой товар - обновляет количество и цену"""
+        name = _dict["name"]
+        description = _dict["description"]
+        price = _dict["price"]
+        quantity = _dict["quantity"]
+        if name in cls.list_products:
+            print("Такой продукт уже есть.")
+            for product in cls.list_products:
+                if name == product["name"]:
+                    quantity += product["quantity"]
+                    product["quantity"] = quantity
+                    if product["price"] != price:
+                        product["price"] = max(price, product["price"])
+                print("Данные по цене и количеству обновлены!")
         return cls(name, description, price, quantity)
 
     @property
@@ -112,25 +121,27 @@ add_data1 = {"name": "Кофе", "description": "Черный гранулиро
     "quantity": 3
 }]
              }
-add_product = Product("Nescafe",
-                      "Нормальный пацанский кофе",
+add_product = Product("Lipton",
+                      "Ну такой себе",
                       300.0, 7)
 
-# print(cat1.len_products)
+# print("cat1", cat1.len_products)
 
 # Проверка работы (раскомментить нужное) 13.2:
 # Задача 1:
-# cat1.add_product(add_product)
+# new_cat1 = cat1.add_product(add_product)
+# print("ncat", new_cat1.len_products)
 # Задача 2:
-# print(cat1.products, end="\n")
+# print(new_cat1.products, end="\n")
 # Задача 3:
-# prod1 = Product.create_product(
-#     name="Кофе",
-#     description="Черный гранулированный",
-#     price=300.0,
-#     quantity=7
-# )
-# # print(prod1.name, prod1.description, prod1.price, prod1.quantity, sep='\n')
+prod1 = Product.create_product({
+    "name": "Кофе",
+    "description": "Черный гранулированный",
+    "price": 300.0,
+    "quantity": 7
+}
+)
+# print(prod1.name, prod1.description, prod1.price, prod1.quantity, sep='\n')
 # prod2 = Product.create_product(
 #     name="Кофе",
 #     description="Черный гранулированный",
