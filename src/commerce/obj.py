@@ -22,22 +22,20 @@ class Category:
         description = product.description
         price = product.price
         quantity = product.quantity
-        to_dict = {
-            "name": name,
-            "description": description,
-            "price": price,
-            "quantity": quantity
-        }
-        self.__products.append(to_dict)
+        obj = Product(name, description, price, quantity)
+        self.__products.append(obj)
 
     @property
     def products(self):
         """Выводит информацию об имеющихся продуктах
         :return: Список продуктов, стоимость и остаток
         """
+        list_products = []
         for category in self.__products:
-            # print(category)
-            yield f'{category.get('name')}, {category.get('price')} руб. Остаток: {category.get('quantity')} шт.'
+            list_products.append(f'{category.get('name')}, '
+                                 f'{category.get('price')} руб. '
+                                 f'Остаток: {category.get('quantity')} шт.')
+        return list_products
 
 
 class Product:
