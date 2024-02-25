@@ -16,17 +16,7 @@ class Category:
             Category.len_products = len(self.__products)
         Category.len_category += 1
 
-    def add_product(self, product):
-        """Добавляет товар в существующую категорию после инициализации"""
-        name = product.name
-        description = product.description
-        price = product.price
-        quantity = product.quantity
-        obj = Product(name, description, price, quantity)
-        self.__products.append(obj)
-
-    @property
-    def products(self):
+    def __str__(self):
         """Выводит информацию об имеющихся продуктах
         :return: Список продуктов, стоимость и остаток
         """
@@ -36,6 +26,19 @@ class Category:
                                  f'{category.get('price')} руб. '
                                  f'Остаток: {category.get('quantity')} шт.')
         return list_products
+
+    def __len__(self):
+        """Возвращает количество продуктов в категории"""
+        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+
+    def add_product(self, product):
+        """Добавляет товар в существующую категорию после инициализации"""
+        name = product.name
+        description = product.description
+        price = product.price
+        quantity = product.quantity
+        obj = Product(name, description, price, quantity)
+        self.__products.append(obj)
 
 
 class Product:
@@ -58,6 +61,11 @@ class Product:
 
     def __str__(self):
         return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        """Возвращает сумму цен и количества"""
+        result = int(self.price * self.quantity) + (other.price * other.quantity)
+        return f'Стоимость двух товаров в наличии на складе: {result} руб.'
 
     @classmethod
     def create_product(cls, _dict: dict):
