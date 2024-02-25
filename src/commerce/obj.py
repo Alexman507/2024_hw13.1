@@ -23,22 +23,35 @@ class Category:
         list_products = []
         for category in self.__products:
             list_products.append(f'{category.get('name')}, '
-                                 f'{category.get('price')} руб. '
+                                 f'{int(category.get('price'))} руб. '
                                  f'Остаток: {category.get('quantity')} шт.')
-        return list_products
+        return str(list_products)
 
     def __len__(self):
         """Возвращает количество продуктов в категории"""
-        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+        return len(self.__products)
 
     def add_product(self, product):
         """Добавляет товар в существующую категорию после инициализации"""
         name = product.name
         description = product.description
-        price = product.price
+        price = int(product.price)
         quantity = product.quantity
         obj = Product(name, description, price, quantity)
         self.__products.append(obj)
+
+    @property
+    def products(self):
+        """Выводит информацию об имеющихся продуктах (для теста)
+        :return: Список продуктов, стоимость и остаток
+        """
+        list_products = []
+        for category in self.__products:
+            list_products.append(f'{category.get("name")}, '
+                                 f'{int(category.get("price"))} руб. '
+                                 f'Остаток: {category.get("quantity")} шт.')
+
+        return list_products
 
 
 class Product:
@@ -49,15 +62,11 @@ class Product:
 
     def __init__(self, name, description, price, quantity):
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
         self.name = name
-        Product.list_products.append({
-            "name": name,
-            "description": description,
-            "price": price,
-            "quantity": quantity
-        })
+        if not Product.list_products:
+            Product.list_products.append(self)
 
     def __str__(self):
         return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
@@ -67,6 +76,17 @@ class Product:
         result = int(self.price * self.quantity) + (other.price * other.quantity)
         return f'Стоимость двух товаров в наличии на складе: {result} руб.'
 
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        if value > 0:
+            self.__price = value
+        else:
+            raise ValueError
+
     @classmethod
     def create_product(cls, _dict: dict):
         """Создает товар, если уже есть такой товар - обновляет количество и цену"""
@@ -74,27 +94,17 @@ class Product:
         description = _dict["description"]
         price = _dict["price"]
         quantity = _dict["quantity"]
-        if name in cls.list_products:
-            print("Такой продукт уже есть.")
-            for product in cls.list_products:
-                if name == product["name"]:
-                    quantity += product["quantity"]
-                    product["quantity"] = quantity
-                    if product["price"] != price:
-                        product["price"] = max(price, product["price"])
-                print("Данные по цене и количеству обновлены!")
+        # print(cls.list_products)
+        for product in cls.list_products:
+            if name == product.name:
+                print("Такой продукт уже есть.")
+                quantity += product.quantity
+                product.quantity = quantity
+            # if product.price != price:
+                if price < product.price:
+                    price = product.price
+            print("Данные по цене и количеству обновлены!")
         return cls(name, description, price, quantity)
-
-    @property
-    def get_price(self):
-        return self.price
-
-    @get_price.setter
-    def get_price(self, value):
-        if value > 0:
-            self.price = value
-        else:
-            print("Некорректная цена!")
 
 
 cat1 = Category("Чай", "Черный", [{
@@ -115,10 +125,23 @@ product1 = Product("Lipton",
                    "Ну такой себе",
                    300.0, 7)
 
-# print("cat1", cat1.len_products)
+product1_new = {"name": "Lipton",
+                "description": "Ну такой себе",
+                "price": 120.0,
+                "quantity": 5
+                }
 
+product2 = Product("Nestea",
+                   "Сладенький",
+                   300.0, 7)
+
+# print("cat1", cat1.len_products)
+# res1 = product1.create_product(product1_new)
+# print(res1.price, res1.quantity)
 # Проверка работы (раскомментить нужное) 13.3:
 # Задача 1:
 # print(product1)
+# print(f'{cat1.name}, количество продуктов: {len(cat1)} шт.')
 # Задача 2:
+# print(product1 + product2)
 # Задача 3:
