@@ -11,17 +11,10 @@ class Category:
 
         self.__products = products
         if Category.len_products != 0:
-            # print("init", len(self.__products))
             Category.len_products += len(self.__products)
         else:
             Category.len_products = len(self.__products)
         Category.len_category += 1
-
-    # def if_repeat_category(self, name):
-    #     """Проверяет, есть ли такая категория в списке"""
-    #     if name in self.__products:
-    #         return True
-    #     return False
 
     def add_product(self, product):
         """Добавляет товар в существующую категорию после инициализации"""
@@ -64,6 +57,9 @@ class Product:
             "price": price,
             "quantity": quantity
         })
+
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
 
     @classmethod
     def create_product(cls, _dict: dict):
@@ -109,43 +105,14 @@ add_data = {"name": "Чай", "description": "Черный", "products": [{
     "quantity": 7
 }]}
 
-add_data1 = {"name": "Кофе", "description": "Черный гранулированный", "products": [{
-    "name": "Nescafe",
-    "description": "Нормальный пацанский кофе",
-    "price": 300.0,
-    "quantity": 7
-}, {
-    "name": "365 дней",
-    "description": "Ну такой себе кофеек, но не помрёшь",
-    "price": 100.0,
-    "quantity": 3
-}]
-             }
-add_product = Product("Lipton",
-                      "Ну такой себе",
-                      300.0, 7)
+product1 = Product("Lipton",
+                   "Ну такой себе",
+                   300.0, 7)
 
 # print("cat1", cat1.len_products)
 
-# Проверка работы (раскомментить нужное) 13.2:
+# Проверка работы (раскомментить нужное) 13.3:
 # Задача 1:
-# new_cat1 = cat1.add_product(add_product)
-# print("ncat", new_cat1.len_products)
+# print(product1)
 # Задача 2:
-# print(new_cat1.products, end="\n")
 # Задача 3:
-prod1 = Product.create_product({
-    "name": "Кофе",
-    "description": "Черный гранулированный",
-    "price": 300.0,
-    "quantity": 7
-}
-)
-# print(prod1.name, prod1.description, prod1.price, prod1.quantity, sep='\n')
-# prod2 = Product.create_product(
-#     name="Кофе",
-#     description="Черный гранулированный",
-#     price=100.0,
-#     quantity=7
-# )
-# print(prod2.quantity)
