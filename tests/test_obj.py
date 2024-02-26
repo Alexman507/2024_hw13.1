@@ -23,11 +23,11 @@ def test_init(category):
 
 
 def test_str(category):
-    assert str(category) == "['Майский, 120 руб. Остаток: 5 шт.']"
+    assert str(category) == "Чай, количество продуктов 5 шт."
 
 
 def test_len(category):
-    assert len(category) == 1
+    assert len(category) == 5
 
 
 def test_add_product(category):
@@ -71,7 +71,7 @@ def test_add(product):
                                              "Сладенький",
                                              300.0, 7)
 
-    assert str(test_product1 + test_product2) == "Стоимость двух товаров в наличии на складе: 4200.0 руб."
+    assert test_product1 + test_product2 == 4200.0
 
 
 def test_create(product):

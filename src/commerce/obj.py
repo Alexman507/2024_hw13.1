@@ -17,19 +17,20 @@ class Category:
         Category.len_category += 1
 
     def __str__(self):
-        """Выводит информацию об имеющихся продуктах
+        """Выводит информацию о экземпляре
         :return: Список продуктов, стоимость и остаток
         """
-        list_products = []
-        for category in self.__products:
-            list_products.append(f'{category.get('name')}, '
-                                 f'{int(category.get('price'))} руб. '
-                                 f'Остаток: {category.get('quantity')} шт.')
-        return str(list_products)
+        sum_len = len(self)
+        name = self.name
+
+        return f'{name}, количество продуктов {sum_len} шт.'
 
     def __len__(self):
         """Возвращает количество продуктов в категории"""
-        return len(self.__products)
+        sum_quantity = 0
+        for product in self.__products:
+            sum_quantity += product['quantity']
+        return int(sum_quantity)
 
     def add_product(self, product):
         """Добавляет товар в существующую категорию после инициализации"""
@@ -74,7 +75,7 @@ class Product:
     def __add__(self, other):
         """Возвращает сумму цен и количества"""
         result = int(self.price * self.quantity) + (other.price * other.quantity)
-        return f'Стоимость двух товаров в наличии на складе: {result} руб.'
+        return result
 
     @property
     def price(self):
@@ -135,13 +136,12 @@ product2 = Product("Nestea",
                    "Сладенький",
                    300.0, 7)
 
-# print("cat1", cat1.len_products)
+# print("cat1", cat1)
 # res1 = product1.create_product(product1_new)
 # print(res1.price, res1.quantity)
 # Проверка работы (раскомментить нужное) 13.3:
 # Задача 1:
 # print(product1)
-# print(f'{cat1.name}, количество продуктов: {len(cat1)} шт.')
 # Задача 2:
-# print(product1 + product2)
+# print(f'Стоимость двух товаров в наличии на складе:', product1 + product2, "руб.")
 # Задача 3:
