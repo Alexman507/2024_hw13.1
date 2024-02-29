@@ -74,8 +74,9 @@ class Product:
 
     def __add__(self, other):
         """Возвращает сумму цен и количества"""
-        result = int(self.price * self.quantity) + (other.price * other.quantity)
-        return result
+        if not isinstance(other, type(other)):
+            result = int(self.price * self.quantity) + (other.price * other.quantity)
+            return result
 
     @property
     def price(self):
@@ -106,6 +107,25 @@ class Product:
                     price = product.price
             print("Данные по цене и количеству обновлены!")
         return cls(name, description, price, quantity)
+
+
+class Smartphone(Product):
+
+    def __init__(self, name, description, price, quantity, performance, model, memory, color):
+        super().__init__(name, description, price, quantity)
+        self.performance = performance
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+
+    def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
 
 
 cat1 = Category("Чай", "Черный", [{
