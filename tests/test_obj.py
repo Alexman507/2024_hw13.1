@@ -2,6 +2,16 @@ import src.commerce.obj
 import pytest
 
 
+class Anyway:
+    """Класс для проверки тестами"""
+
+    def __init__(self, name, description, price, quantity):
+        self.name = name
+        self.description = description
+        self.price = price
+        self.quantity = quantity
+
+
 @pytest.fixture
 def category():
     return src.commerce.obj.Category(
@@ -39,6 +49,13 @@ def test_add_product(category):
     )
     category.add_product(test_cat)
     assert str(test_cat) == "Майский, 120.0 руб. Остаток: 5 шт."
+
+    with pytest.raises(TypeError):
+        test_product1 = Anyway("Lipton",
+                               "Ну такой себе",
+                               300.0, 7)
+
+        category.add_product(test_product1)
 
 
 @pytest.fixture

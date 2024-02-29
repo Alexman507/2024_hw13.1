@@ -32,14 +32,12 @@ class Category:
             sum_quantity += product['quantity']
         return int(sum_quantity)
 
-    def add_product(self, product):
+    def add_product(self, product: object):
         """Добавляет товар в существующую категорию после инициализации"""
-        name = product.name
-        description = product.description
-        price = int(product.price)
-        quantity = product.quantity
-        obj = Product(name, description, price, quantity)
-        self.__products.append(obj)
+        if not isinstance(product, Product):
+            raise TypeError(f'Cannot add {type(product)} to {type(self)}')
+        else:
+            self.__products.append(product)
 
     @property
     def products(self):
