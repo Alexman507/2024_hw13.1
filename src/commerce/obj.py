@@ -110,7 +110,7 @@ class Product:
 
 
 class Smartphone(Product):
-
+    """Класс для вывода информации о товаре Смартфон"""
     def __init__(self, name, description, price, quantity, performance, model, memory, color):
         super().__init__(name, description, price, quantity)
         self.performance = performance
@@ -120,7 +120,7 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-
+    """Класс для вывода информации о товаре Трава газонная"""
     def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
         super().__init__(name, description, price, quantity)
         self.manufacturer_country = manufacturer_country
