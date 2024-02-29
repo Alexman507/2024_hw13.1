@@ -74,9 +74,11 @@ class Product:
 
     def __add__(self, other):
         """Возвращает сумму цен и количества"""
-        if not isinstance(other, type(other)):
+        if isinstance(other, type(self)):
             result = int(self.price * self.quantity) + (other.price * other.quantity)
             return result
+        else:
+            raise TypeError
 
     @property
     def price(self):
@@ -156,12 +158,8 @@ product2 = Product("Nestea",
                    "Сладенький",
                    300.0, 7)
 
-# print("cat1", cat1)
-# res1 = product1.create_product(product1_new)
-# print(res1.price, res1.quantity)
-# Проверка работы (раскомментить нужное) 13.3:
-# Задача 1:
-# print(product1)
+
+# Проверка работы (раскомментить нужное) 15.1:
 # Задача 2:
-# print(f'Стоимость двух товаров в наличии на складе:', product1 + product2, "руб.")
+
 # Задача 3:

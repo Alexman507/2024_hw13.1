@@ -73,6 +73,13 @@ def test_add(product):
 
     assert test_product1 + test_product2 == 4200.0
 
+    with pytest.raises(TypeError):
+        class_smart = src.commerce.obj.Smartphone("Xiaomi", "low coast", 10_000, 15,
+                                                  "6/10", "MI8", "256 GB", "Blue")
+        class_grass = src.commerce.obj.LawnGrass("Grass", "овёс", 100, 2,
+                                                 "RF", "2 weeks", "Green")
+        class_smart + class_grass
+
 
 def test_create(product):
     prod1 = src.commerce.obj.Product.create_product({
