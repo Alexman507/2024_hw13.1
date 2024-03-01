@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 class Category:
     """Класс для вывода списка товаров"""
     # Количество категорий
@@ -53,7 +56,7 @@ class Category:
         return list_products
 
 
-class Product:
+class Product(ABC):
     """Класс для вывода информации о товаре"""
     # Список существующих названий продуктов для проверки
     list_products: list = []
@@ -128,36 +131,3 @@ class LawnGrass(Product):
         self.color = color
 
 
-cat1 = Category("Чай", "Черный", [{
-    "name": "Майский",
-    "description": "Нормальный пацанский чай",
-    "price": 300.0,
-    "quantity": 7
-}])
-
-add_data = {"name": "Чай", "description": "Черный", "products": [{
-    "name": "Майский",
-    "description": "Нормальный пацанский чай",
-    "price": 300.0,
-    "quantity": 7
-}]}
-
-product1 = Product("Lipton",
-                   "Ну такой себе",
-                   300.0, 7)
-
-product1_new = {"name": "Lipton",
-                "description": "Ну такой себе",
-                "price": 120.0,
-                "quantity": 5
-                }
-
-product2 = Product("Nestea",
-                   "Сладенький",
-                   300.0, 7)
-
-
-# Проверка работы (раскомментить нужное) 15.1:
-# Задача 2:
-
-# Задача 3:
