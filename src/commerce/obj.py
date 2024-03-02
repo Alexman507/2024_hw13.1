@@ -32,14 +32,12 @@ class Category:
             sum_quantity += product['quantity']
         return int(sum_quantity)
 
-    def add_product(self, product):
+    def add_product(self, product: object):
         """Добавляет товар в существующую категорию после инициализации"""
-        name = product.name
-        description = product.description
-        price = int(product.price)
-        quantity = product.quantity
-        obj = Product(name, description, price, quantity)
-        self.__products.append(obj)
+        if not isinstance(product, Product):
+            raise TypeError(f'Cannot add {type(product)} to {type(self)}')
+        else:
+            self.__products.append(product)
 
     @property
     def products(self):
@@ -74,8 +72,11 @@ class Product:
 
     def __add__(self, other):
         """Возвращает сумму цен и количества"""
-        result = int(self.price * self.quantity) + (other.price * other.quantity)
-        return result
+        if isinstance(other, type(self)):
+            result = int(self.price * self.quantity) + (other.price * other.quantity)
+            return result
+        else:
+            raise TypeError
 
     @property
     def price(self):
@@ -108,6 +109,25 @@ class Product:
         return cls(name, description, price, quantity)
 
 
+class Smartphone(Product):
+    """Класс для вывода информации о товаре Смартфон"""
+    def __init__(self, name, description, price, quantity, performance, model, memory, color):
+        super().__init__(name, description, price, quantity)
+        self.performance = performance
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    """Класс для вывода информации о товаре Трава газонная"""
+    def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
+
+
 cat1 = Category("Чай", "Черный", [{
     "name": "Майский",
     "description": "Нормальный пацанский чай",
@@ -136,12 +156,8 @@ product2 = Product("Nestea",
                    "Сладенький",
                    300.0, 7)
 
-# print("cat1", cat1)
-# res1 = product1.create_product(product1_new)
-# print(res1.price, res1.quantity)
-# Проверка работы (раскомментить нужное) 13.3:
-# Задача 1:
-# print(product1)
+
+# Проверка работы (раскомментить нужное) 15.1:
 # Задача 2:
-# print(f'Стоимость двух товаров в наличии на складе:', product1 + product2, "руб.")
+
 # Задача 3:
