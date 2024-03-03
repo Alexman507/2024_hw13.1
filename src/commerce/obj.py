@@ -147,3 +147,7 @@ class LawnGrass(Product):
 prod1 = Product("Test", "Test", 1, 12)
 lawn1 = LawnGrass("Lawn", "Test", 150, 100, "RF", "2 years", "Green")
 smart1 = Smartphone("Smartphone", "Test", 12_000, 100, "6.8/10", "l1", "128gb", "Blue")
+
+# print(LawnGrass.__mro__)
+# print(Smartphone.__mro__)
+# print(Product.__mro__)
