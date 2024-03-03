@@ -120,8 +120,8 @@ def test_update():
                  }
     res = prod2.create_product(prod2_new)
 
-    assert res.price == 300
-    assert res.quantity == 12
+    assert res.price == 120
+    assert res.quantity == 5
 
 
 def test_get_price(product):
@@ -135,3 +135,17 @@ def test_get_price(product):
 
     with pytest.raises(ValueError):
         prod1.price = -400
+
+
+def test_mixin_repr():
+    prod1 = src.commerce.obj.Product("Test", "Test", 1, 12)
+    lawn1 = src.commerce.obj.LawnGrass("Lawn", "Test", 150, 100, "RF", "2 years", "Green")
+    smart1 = src.commerce.obj.Smartphone("Smartphone", "Test", 12_000, 100, "6.8/10", "l1", "128gb", "Blue")
+
+    assert repr(prod1) == ("Product(dict_items([('description', 'Test'), ('_Product__price', 1), ('quantity', 12), "
+                           "('name', 'Test')]))")
+    assert repr(lawn1) == ("LawnGrass(dict_items([('manufacturer_country', 'RF'), ('germination_period', '2 years'), "
+                           "('color', 'Green'), ('description', 'Test'), ('_Product__price', 150), ('quantity', 100),"
+                           " ('name', 'Lawn')]))")
+    assert repr(smart1) == "Smartphone(dict_items([('performance', '6.8/10'), ('model', 'l1'), ('memory', '128gb'), ('color', 'Blue'), ('description', 'Test'), ('_Product__price', 12000), ('quantity', 100), ('name', 'Smartphone')]))"
+
