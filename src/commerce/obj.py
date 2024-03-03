@@ -56,7 +56,17 @@ class Category:
         return list_products
 
 
-class Product(ABC):
+class MixinRepr:
+    """Миксин для вывода информации о товаре"""
+
+    def __init__(self, *args, **kwargs):
+        print(repr(self))
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}({self.__dict__.items()})'
+
+
+class Product(ABC, MixinRepr):
     """Класс для вывода информации о товаре"""
     # Список существующих названий продуктов для проверки
     list_products: list = []
@@ -67,6 +77,7 @@ class Product(ABC):
         self.__price = price
         self.quantity = quantity
         self.name = name
+        super().__init__()
         if not Product.list_products:
             Product.list_products.append(self)
 
@@ -105,7 +116,7 @@ class Product(ABC):
                 print("Такой продукт уже есть.")
                 quantity += product.quantity
                 product.quantity = quantity
-            # if product.price != price:
+                # if product.price != price:
                 if price < product.price:
                     price = product.price
             print("Данные по цене и количеству обновлены!")
@@ -114,20 +125,25 @@ class Product(ABC):
 
 class Smartphone(Product):
     """Класс для вывода информации о товаре Смартфон"""
+
     def __init__(self, name, description, price, quantity, performance, model, memory, color):
-        super().__init__(name, description, price, quantity)
         self.performance = performance
         self.model = model
         self.memory = memory
         self.color = color
+        super().__init__(name, description, price, quantity)
 
 
 class LawnGrass(Product):
     """Класс для вывода информации о товаре Трава газонная"""
+
     def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
-        super().__init__(name, description, price, quantity)
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
+        super().__init__(name, description, price, quantity)
 
 
+prod1 = Product("Test", "Test", 1, 12)
+lawn1 = LawnGrass("Lawn", "Test", 150, 100, "RF", "2 years", "Green")
+smart1 = Smartphone("Smartphone", "Test", 12_000, 100, "6.8/10", "l1", "128gb", "Blue")
