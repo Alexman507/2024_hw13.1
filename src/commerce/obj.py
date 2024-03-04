@@ -56,17 +56,30 @@ class Category:
         return list_products
 
 
+class ProductABS(ABC):
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def price(self):
+        pass
+
+
 class MixinRepr:
     """Миксин для вывода информации о товаре"""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args):
         print(repr(self))
 
     def __repr__(self):
-        return f'{self.__class__.__name__}({self.__dict__.items()})'
+        object_attributes = ''
+        for k, v in self.__dict__.items():
+            object_attributes += f'{k}: {v}, '
+        return f"создан объект со свойствами: ({object_attributes[0:-2]})"
 
 
-class Product(ABC, MixinRepr):
+class Product(MixinRepr, ProductABS):
     """Класс для вывода информации о товаре"""
     # Список существующих названий продуктов для проверки
     list_products: list = []
@@ -123,7 +136,7 @@ class Product(ABC, MixinRepr):
         return cls(name, description, price, quantity)
 
 
-class Smartphone(Product):
+class Smartphone(Product, MixinRepr):
     """Класс для вывода информации о товаре Смартфон"""
 
     def __init__(self, name, description, price, quantity, performance, model, memory, color):
@@ -134,7 +147,7 @@ class Smartphone(Product):
         super().__init__(name, description, price, quantity)
 
 
-class LawnGrass(Product):
+class LawnGrass(Product, MixinRepr):
     """Класс для вывода информации о товаре Трава газонная"""
 
     def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
@@ -148,6 +161,6 @@ prod1 = Product("Test", "Test", 1, 12)
 lawn1 = LawnGrass("Lawn", "Test", 150, 100, "RF", "2 years", "Green")
 smart1 = Smartphone("Smartphone", "Test", 12_000, 100, "6.8/10", "l1", "128gb", "Blue")
 
-# print(LawnGrass.__mro__)
-# print(Smartphone.__mro__)
-# print(Product.__mro__)
+print(LawnGrass.__mro__)
+print(Smartphone.__mro__)
+print(Product.__mro__)
