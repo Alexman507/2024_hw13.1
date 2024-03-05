@@ -88,6 +88,8 @@ class Product(MixinRepr, ProductABS):
     def __init__(self, name, description, price, quantity):
         self.description = description
         self.__price = price
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.quantity = quantity
         self.name = name
         super().__init__()
@@ -132,6 +134,8 @@ class Product(MixinRepr, ProductABS):
                 # if product.price != price:
                 if price < product.price:
                     price = product.price
+                if quantity == 0:
+                    raise ValueError("Товар с нулевым количеством не может быть добавлен")
             print("Данные по цене и количеству обновлены!")
         return cls(name, description, price, quantity)
 
