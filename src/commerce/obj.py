@@ -55,6 +55,18 @@ class Category:
 
         return list_products
 
+    def average_price(self):
+        """Возвращает среднюю цену продуктов в категории"""
+        sum_price = 0
+        for product in self.__products:
+            sum_price += product['price']
+        try:
+            result = int(sum_price / len(self.__products))
+        except ZeroDivisionError as e:
+            print(e)
+        else:
+            return result
+
 
 class ProductABS(ABC):
     @abstractmethod
