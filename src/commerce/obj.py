@@ -11,7 +11,6 @@ class Category:
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
-
         self.__products = products
         if Category.len_products != 0:
             Category.len_products += len(self.__products)
@@ -39,6 +38,8 @@ class Category:
         """Добавляет товар в существующую категорию после инициализации"""
         if not isinstance(product, Product):
             raise TypeError(f'Cannot add {type(product)} to {type(self)}')
+        if product.quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         else:
             self.__products.append(product)
 
@@ -54,6 +55,19 @@ class Category:
                                  f'Остаток: {category.get("quantity")} шт.')
 
         return list_products
+
+    def average_price(self):
+        """Возвращает среднюю цену продуктов в категории"""
+        sum_price = 0
+        for product in self.__products:
+            sum_price += product['price']
+        try:
+            result = int(sum_price / len(self.__products))
+        except ZeroDivisionError as e:
+            print(e)
+            return 0
+        else:
+            return result
 
 
 class ProductABS(ABC):
@@ -132,6 +146,8 @@ class Product(MixinRepr, ProductABS):
                 # if product.price != price:
                 if price < product.price:
                     price = product.price
+                if quantity == 0:
+                    raise ValueError("Товар с нулевым количеством не может быть добавлен")
             print("Данные по цене и количеству обновлены!")
         return cls(name, description, price, quantity)
 
