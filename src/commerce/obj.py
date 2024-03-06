@@ -11,7 +11,6 @@ class Category:
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
-
         self.__products = products
         if Category.len_products != 0:
             Category.len_products += len(self.__products)
@@ -39,6 +38,8 @@ class Category:
         """Добавляет товар в существующую категорию после инициализации"""
         if not isinstance(product, Product):
             raise TypeError(f'Cannot add {type(product)} to {type(self)}')
+        if product.quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         else:
             self.__products.append(product)
 
@@ -64,6 +65,7 @@ class Category:
             result = int(sum_price / len(self.__products))
         except ZeroDivisionError as e:
             print(e)
+            return 0
         else:
             return result
 
@@ -100,8 +102,6 @@ class Product(MixinRepr, ProductABS):
     def __init__(self, name, description, price, quantity):
         self.description = description
         self.__price = price
-        if quantity == 0:
-            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.quantity = quantity
         self.name = name
         super().__init__()
